@@ -1,0 +1,23 @@
+# contact
+pkg install python2
+pkg install git
+pip2 install rsa
+pip2 install thrift==0.9.3
+pip2 install requests
+pip2 install datetime
+pip2 install BeautifulSoup
+pip2 install BeautifulSoup4
+pip2 install html5
+pip2 install gtts
+pip2 install goslate
+pip2 install googletrans
+pip2 install bs4
+pip2 install lxml
+pip2 install wikipedia
+pip2 install tweepy
+pip2 install pyowm
+pip2 install PyDictionary
+pip2 install Mergedict
+pip2 install enum
+pip2 install flask
+pip install stream
