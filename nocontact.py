@@ -109,18 +109,7 @@ def waktu(secs):
     mins, secs = divmod(secs,60)
     hours, mins = divmod(mins,60)
     return '%02d ชั่วโมง %02d นาที %02d วินาที' % (hours, mins, secs)
-def sendImageWithURL(self, to_, url):
-      path = '%s/pythonLine-%i.data' % (tempfile.gettempdir(), randint(0, 9))
-      r = requests.get(url, stream=True)
-      if r.status_code == 200:
-         with open(path, 'w') as f:
-            shutil.copyfileobj(r.raw, f)
-      else:
-         raise Exception('Download image failure.')
-      try:
-         self.sendImage(to_, path)
-      except Exception as e:
-         raise e
+
 def bot(op):
     try:
         if op.type == 0:
@@ -141,23 +130,22 @@ def bot(op):
             cl.sendText(admin,op.param1)
         if op.type == 14:
             gname = cl.getGroup(op.param1).name
-            cl.sendText(admin,"บอทถูกเตะออกจากกลุ่ม\n"+gname+"\n")
+            cl.sendText(admin,"บอทออกจากกลุ่ม\n"+gname+"\n")
 # ----------------- NOTIFED MEMBER OUT GROUP
  #       if op.type == 15:
   #          if op.param2 in bot1:
    #             return
     #        cl.sendText(op.param1,"" + cl.getContact(op.param2).displayName + " \n   ••*•••*•••*•••*••\nขอบคุณที่ใช้บริการ\nโอกาสหน้าเชิญใหม่นะครับ\n💙 ขอบคุณครับ 💙 \n◡̈••*•••*•••*•••*•••*••\n✍ŦɛşŦ ƅ✪Ŧ Îℕƿ¥➣➤")
      #       print ("MEMBER HAS LEFT THE GROUP")
+
+# ----------------- NOTIFED MEMBER JOIN GROUP
         if op.type == 17:
-			if wait["welcomemsg"] == True:
-				if op.param2 not in Bots:
-					ginfo = cl.getGroup(op.param1)
-					cinfo = cl.getContact(op.param2)
-					cl.sendText(op.param1,"สวัสดี "+str(cinfo.displayName)+"\nยินดีต้อนรับสู่กลุ่ม \n"+str(ginfo.name))
-					cl.sendImageWithURL(op.param1,"http://dl.profile.line-cdn.net/"+str(cinfo.pictureStatus))
-					c = Message(to=op.param1, from_=None, text=None, contentType=13)
-					c.contentMetadata={'mid':op.param2}
-					cl.sendMessage(c)
+            if op.param2 in bot1:
+                return
+            ginfo = cl.getGroup(op.param1)
+            cl.sendText(op.param1, "สวัสดี  " + cl.getContact(op.param2).displayName+" ค่ะ")
+            cl.sendText(op.param1,str(ginfo.name)+"\nยินดีต้อนรับ")
+            print "MEMBER HAS JOIN THE GROUP"
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -173,24 +161,6 @@ def bot(op):
                if wait["contact"] == True:
                     msg.contentType = 0
                     cl.sendText(msg.to,msg.contentMetadata["mid"])
-                    if 'displayName' in msg.contentMetadata:
-                        contact = cl.getContact(msg.contentMetadata["mid"])
-                        try:
-                            cu = cl.channel.getCover(msg.contentMetadata["mid"])
-                        except:
-                            cu = ""
-                        balas = ["โสด","ไม่โสด"]
-                        ret_ = random.choice(balas)
-                        cl.sendText(msg.to,"[ ชื่อ ]:\n" + msg.contentMetadata["displayName"] + "\n[ Mid ]:\n" + msg.contentMetadata["mid"] + "\n\n[ ข้อความสถานะ ]:\n" + contact.statusMessage + "\n[ รูปโปรไฟล์ ]:\nhttp://dl.profile.line-cdn.net/" + contact.pictureStatus + "\n[ ปก ]:\n" + str(cu) + "\n[ สถานะ ]:\n" + ret_)
-                    else:
-                        contact = cl.getContact(msg.contentMetadata["mid"])
-                        try:
-                            cu = cl.channel.getCover(msg.contentMetadata["mid"])
-                        except:
-                            cu = ""
-                        balas = ["โสด","ไม่โสด"]
-                        ret_ = random.choice(balas)
-                        cl.sendText(msg.to,"[ ชื่อ ]:\n" + contact.displayName + "\n\n[ Mid ]:\n" + msg.contentMetadata["mid"] + "\n[ ข้อความสถานะ ]:\n" + contact.statusMessage + "\n\n[ รูปโปรไฟล์ ]:\nhttp://dl.profile.line-cdn.net/" + contact.pictureStatus + "\n[ ปก ]:\n" + str(cu) + "\n[ สถานะ ]:\n" + ret_)
 
             elif msg.text is None:
                 return
