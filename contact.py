@@ -13,7 +13,7 @@ from googletrans import Translator
 
 cl = LINETCR.LINE()
 #cl.login(qr=True)
-cl.login(token="EpHJdpdRYfugpYoNvjO0.LWgKk7amvuthLm0twfh+Ga.fEplE3C5w/K0Vq5Q9Fve75lC9rP/b/abbouxKpubqhI=")
+cl.login(token="token")
 cl.loginResult()
 
 
